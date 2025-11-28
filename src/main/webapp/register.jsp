@@ -6,47 +6,49 @@
         <meta charset="UTF-8">
         <title>Register - E-Shop</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+        <link href="assets/css/style.css" rel="stylesheet">
     </head>
 
-    <body class="bg-light">
-        <div class="container mt-5">
-            <div class="row justify-content-center">
-                <div class="col-md-5">
-                    <div class="card">
-                        <div class="card-header text-center">
-                            <h3>Register</h3>
+    <body>
+        <div class="container auth-container">
+            <div class="card auth-card">
+                <div class="card-header text-center border-0">
+                    <h3 class="fw-bold text-success">Create Account</h3>
+                    <p class="text-muted small">Join us today!</p>
+                </div>
+                <div class="card-body">
+                    <% String error=(String) request.getAttribute("error"); if (error !=null) { %>
+                        <div class="alert alert-danger rounded-pill px-4">
+                            <%= error %>
                         </div>
-                        <div class="card-body">
-                            <% String error=(String) request.getAttribute("error"); if (error !=null) { %>
-                                <div class="alert alert-danger">
-                                    <%= error %>
+                        <% } %>
+                            <form action="auth" method="post">
+                                <input type="hidden" name="action" value="register">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold text-secondary">Username</label>
+                                    <input type="text" name="username" class="form-control rounded-pill px-3" required>
                                 </div>
-                                <% } %>
-                                    <form action="auth" method="post">
-                                        <input type="hidden" name="action" value="register">
-                                        <div class="mb-3">
-                                            <label class="form-label">Username</label>
-                                            <input type="text" name="username" class="form-control" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">Email</label>
-                                            <input type="email" name="email" class="form-control" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">Phone</label>
-                                            <input type="text" name="phone" class="form-control">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">Password</label>
-                                            <input type="password" name="password" class="form-control" required>
-                                        </div>
-                                        <button type="submit" class="btn btn-success w-100">Register</button>
-                                    </form>
-                        </div>
-                        <div class="card-footer text-center">
-                            <a href="login.jsp">Already have an account? Login</a>
-                        </div>
-                    </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold text-secondary">Email</label>
+                                    <input type="email" name="email" class="form-control rounded-pill px-3" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold text-secondary">Phone</label>
+                                    <input type="text" name="phone" class="form-control rounded-pill px-3">
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label fw-bold text-secondary">Password</label>
+                                    <input type="password" name="password" class="form-control rounded-pill px-3"
+                                        required>
+                                </div>
+                                <button type="submit"
+                                    class="btn btn-success w-100 py-2 rounded-pill fw-bold">Register</button>
+                            </form>
+                </div>
+                <div class="card-footer text-center border-0 bg-transparent">
+                    <p class="text-muted">Already have an account? <a href="login.jsp"
+                            class="text-success fw-bold text-decoration-none">Login</a></p>
                 </div>
             </div>
         </div>

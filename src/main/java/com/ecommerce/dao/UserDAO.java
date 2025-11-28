@@ -1,100 +1,65 @@
 package com.ecommerce.dao;
 
-import com.ecommerce.config.DBUtil;
 import com.ecommerce.model.User;
-import java.sql.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
+@Repository
 public class UserDAO {
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    private RowMapper<User> userRowMapper = new RowMapper<User>() {
+        @Override
+        public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+            User user = new User();
+            user.setId(rs.getInt("id"));
+            user.setUsername(rs.getString("username"));
+            user.setPassword(rs.getString("password"));
+            user.setEmail(rs.getString("email"));
+            user.setPhone(rs.getString("phone"));
+            user.setRole(rs.getInt("role"));
+            user.setCreateTime(rs.getTimestamp("create_time"));
+            return user;
+        }
+    };
 
     public boolean register(User user) {
         String sql = "INSERT INTO users (username, password, email, phone, role) VALUES (?, ?, ?, ?, ?)";
-        try (Connection conn = DBUtil.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, user.getUsername());
-            pstmt.setString(2, user.getPassword());
-            pstmt.setString(3, user.getEmail());
-            pstmt.setString(4, user.getPhone());
-            pstmt.setInt(5, user.getRole());
-            int rows = pstmt.executeUpdate();
-            return rows > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
+        int rows = jdbcTemplate.update(sql, user.getUsername(), user.getPassword(), user.getEmail(), user.getPhone(), user.getRole());
+        return rows > 0;
     }
 
     public User login(String username, String password) {
         String sql = "SELECT * FROM users WHERE username = ? AND password = ?";
-        try (Connection conn = DBUtil.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, username);
-            pstmt.setString(2, password);
-            try (ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next()) {
-                    User user = new User();
-                    user.setId(rs.getInt("id"));
-                    user.setUsername(rs.getString("username"));
-                    user.setPassword(rs.getString("password"));
-                    user.setEmail(rs.getString("email"));
-                    user.setPhone(rs.getString("phone"));
-                    user.setRole(rs.getInt("role"));
-                    user.setCreateTime(rs.getTimestamp("create_time"));
-                    return user;
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        try {
+            return jdbcTemplate.queryForObject(sql, userRowMapper, username, password);
+        } catch (Exception e) {
+            return null;
         }
-        return null;
     }
 
     public boolean isUsernameExists(String username) {
-        String sql = "SELECT id FROM users WHERE username = ?";
-        try (Connection conn = DBUtil.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, username);
-            try (ResultSet rs = pstmt.executeQuery()) {
-                return rs.next();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
+        String sql = "SELECT count(*) FROM users WHERE username = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, username);
+        return count != null && count > 0;
     }
 
     public void updateUser(User user) {
         String sql = "UPDATE users SET email=?, phone=?, password=? WHERE id=?";
-        try (Connection conn = DBUtil.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, user.getEmail());
-            pstmt.setString(2, user.getPhone());
-            pstmt.setString(3, user.getPassword());
-            pstmt.setInt(4, user.getId());
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        jdbcTemplate.update(sql, user.getEmail(), user.getPhone(), user.getPassword(), user.getId());
     }
     
-    public java.util.List<User> getAllUsers() {
-        java.util.List<User> list = new java.util.ArrayList<>();
+    public List<User> getAllUsers() {
         String sql = "SELECT * FROM users";
-        try (Connection conn = DBUtil.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
-            while (rs.next()) {
-                User user = new User();
-                user.setId(rs.getInt("id"));
-                user.setUsername(rs.getString("username"));
-                user.setEmail(rs.getString("email"));
-                user.setPhone(rs.getString("phone"));
-                user.setRole(rs.getInt("role"));
-                user.setCreateTime(rs.getTimestamp("create_time"));
-                list.add(user);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return list;
+        return jdbcTemplate.query(sql, userRowMapper);
     }
-}
+}    
+

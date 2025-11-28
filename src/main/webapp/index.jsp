@@ -7,25 +7,12 @@
             <meta charset="UTF-8">
             <title>E-Shop Home</title>
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-            <style>
-                .product-card {
-                    transition: transform 0.2s;
-                }
-
-                .product-card:hover {
-                    transform: translateY(-5px);
-                    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-                }
-
-                .card-img-top {
-                    height: 200px;
-                    object-fit: cover;
-                }
-            </style>
+            <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+            <link href="assets/css/style.css" rel="stylesheet">
         </head>
 
         <body>
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+            <nav class="navbar navbar-expand-lg navbar-dark mb-4">
                 <div class="container">
                     <a class="navbar-brand" href="products">E-Shop</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -43,9 +30,9 @@
                         </ul>
                         <form class="d-flex me-3" action="products">
                             <input type="hidden" name="action" value="search">
-                            <input class="form-control me-2" type="search" name="keyword" placeholder="Search"
-                                value="${searchKeyword}">
-                            <button class="btn btn-outline-light" type="submit">Search</button>
+                            <input class="form-control me-2 rounded-pill" type="search" name="keyword"
+                                placeholder="Search products..." value="${searchKeyword}">
+                            <button class="btn btn-outline-light rounded-pill" type="submit">Search</button>
                         </form>
                         <ul class="navbar-nav">
                             <li class="nav-item"><a class="nav-link" href="cart?action=view">Cart</a></li>
@@ -83,25 +70,28 @@
                 <div class="row">
                     <c:forEach items="${products}" var="p">
                         <div class="col-md-3 mb-4">
-                            <div class="card product-card h-100">
-                                <img src="assets/images/${p.image}" class="card-img-top" alt="${p.name}"
-                                    onerror="this.src='https://via.placeholder.com/200'">
+                            <div class="card product-card h-100 border-0">
+                                <div class="overflow-hidden">
+                                    <img src="assets/images/${p.image}" class="card-img-top" alt="${p.name}"
+                                        onerror="this.src='https://via.placeholder.com/300x300?text=No+Image'">
+                                </div>
                                 <div class="card-body d-flex flex-column">
-                                    <h5 class="card-title">${p.name}</h5>
-                                    <p class="card-text text-muted small">${p.categoryName}</p>
-                                    <p class="card-text text-truncate">${p.description}</p>
-                                    <div class="mt-auto">
-                                        <h5 class="text-primary">$${p.price}</h5>
+                                    <h5 class="card-title fw-bold text-dark">${p.name}</h5>
+                                    <span
+                                        class="badge bg-light text-secondary mb-2 align-self-start">${p.categoryName}</span>
+                                    <p class="card-text text-muted small flex-grow-1">${p.description}</p>
+                                    <div class="mt-3 d-flex justify-content-between align-items-center">
+                                        <span class="price-tag">$${p.price}</span>
                                         <a href="products?action=detail&id=${p.id}"
-                                            class="btn btn-outline-primary w-100">View Details</a>
+                                            class="btn btn-primary btn-sm px-4">Buy Now</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </c:forEach>
                     <c:if test="${empty products}">
-                        <div class="col-12 text-center">
-                            <h3>No products found.</h3>
+                        <div class="col-12 text-center mt-5">
+                            <h3 class="text-muted">No products found.</h3>
                         </div>
                     </c:if>
                 </div>
