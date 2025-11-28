@@ -5,7 +5,7 @@
 
         <head>
             <meta charset="UTF-8">
-            <title>Order #${order.id} - E-Shop</title>
+            <title>Order #${order.id} - 电商平台</title>
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         </head>
 
@@ -14,32 +14,32 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h3>Order #${order.id}</h3>
-                        <a href="order?action=my" class="btn btn-secondary">Back to Orders</a>
+                        <a href="order?action=my" class="btn btn-secondary">返回订单列表</a>
                     </div>
                     <div class="card-body">
                         <div class="row mb-4">
                             <div class="col-md-6">
-                                <h5>Shipping Info</h5>
-                                <p><strong>Receiver:</strong> ${order.receiver}</p>
+                                <h5>收货信息</h5>
+                                <p><strong>收货人：</strong> ${order.receiver}</p>
                                 <p><strong>Phone:</strong> ${order.phone}</p>
                                 <p><strong>Address:</strong> ${order.address}</p>
                             </div>
                             <div class="col-md-6 text-end">
-                                <h5>Order Info</h5>
+                                <h5>订单信息</h5>
                                 <p><strong>Date:</strong> ${order.createTime}</p>
                                 <p><strong>Status:</strong> ${order.statusText}</p>
-                                <p><strong>Total:</strong> $${order.totalAmount}</p>
+                                <p><strong>总计：</strong> $${order.totalAmount}</p>
                             </div>
                         </div>
 
-                        <h5>Items</h5>
+                        <h5>商品明细</h5>
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Product</th>
-                                    <th>Price</th>
-                                    <th>Quantity</th>
-                                    <th>Subtotal</th>
+                                    <th>商品</th>
+                                    <th>价格</th>
+                                    <th>数量</th>
+                                    <th>小计</th>
                                 </tr>
                             </thead>
                             <tbody>

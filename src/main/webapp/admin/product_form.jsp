@@ -5,7 +5,7 @@
 
         <head>
             <meta charset="UTF-8">
-            <title>${empty product ? 'Add' : 'Edit'} Product - E-Shop Admin</title>
+            <title>${empty product ? 'Add' : '编辑'} Product - 电商平台 Admin</title>
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         </head>
 
@@ -15,7 +15,7 @@
                     <div class="col-md-8">
                         <div class="card">
                             <div class="card-header">
-                                <h3>${empty product ? 'Add New' : 'Edit'} Product</h3>
+                                <h3>${empty product ? '添加新' : '编辑'} Product</h3>
                             </div>
                             <div class="card-body">
                                 <form action="manage" method="post" enctype="multipart/form-data">
@@ -23,12 +23,12 @@
                                     <input type="hidden" name="id" value="${product.id}">
 
                                     <div class="mb-3">
-                                        <label class="form-label">Name</label>
+                                        <label class="form-label">名称</label>
                                         <input type="text" name="name" class="form-control" required
                                             value="${product.name}">
                                     </div>
                                     <div class="mb-3">
-                                        <label class="form-label">Category</label>
+                                        <label class="form-label">分类</label>
                                         <select name="categoryId" class="form-select" required>
                                             <c:forEach items="${categories}" var="c">
                                                 <option value="${c.id}" ${product.categoryId==c.id ? 'selected' : '' }>
@@ -37,32 +37,32 @@
                                         </select>
                                     </div>
                                     <div class="mb-3">
-                                        <label class="form-label">Price</label>
+                                        <label class="form-label">价格</label>
                                         <input type="number" step="0.01" name="price" class="form-control" required
                                             value="${product.price}">
                                     </div>
                                     <div class="mb-3">
-                                        <label class="form-label">Stock</label>
+                                        <label class="form-label">库存</label>
                                         <input type="number" name="stock" class="form-control" required
                                             value="${product.stock}">
                                     </div>
                                     <div class="mb-3">
-                                        <label class="form-label">Description</label>
+                                        <label class="form-label">描述</label>
                                         <textarea name="description" class="form-control"
                                             rows="3">${product.description}</textarea>
                                     </div>
                                     <div class="mb-3">
-                                        <label class="form-label">Image</label>
+                                        <label class="form-label">图片</label>
                                         <input type="file" name="image" class="form-control">
                                         <c:if test="${not empty product.image}">
-                                            <div class="mt-2">Current: <img src="../assets/images/${product.image}"
+                                            <div class="mt-2">当前图片： <img src="../assets/images/${product.image}"
                                                     width="100"></div>
                                         </c:if>
                                     </div>
 
                                     <div class="d-flex justify-content-between">
-                                        <a href="manage?action=products" class="btn btn-secondary">Cancel</a>
-                                        <button type="submit" class="btn btn-primary">Save Product</button>
+                                        <a href="manage?action=products" class="btn btn-secondary">取消</a>
+                                        <button type="submit" class="btn btn-primary">保存商品</button>
                                     </div>
                                 </form>
                             </div>

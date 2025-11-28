@@ -5,7 +5,7 @@
 
         <head>
             <meta charset="UTF-8">
-            <title>${product.name} - E-Shop</title>
+            <title>${product.name} - 电商平台</title>
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
             <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
             <link href="assets/css/style.css" rel="stylesheet">
@@ -14,11 +14,11 @@
         <body>
             <nav class="navbar navbar-expand-lg navbar-dark mb-4">
                 <div class="container">
-                    <a class="navbar-brand" href="products">E-Shop</a>
+                    <a class="navbar-brand" href="products">电商平台</a>
                     <div class="collapse navbar-collapse">
                         <ul class="navbar-nav ms-auto">
-                            <li class="nav-item"><a class="nav-link" href="products">Back to Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="cart?action=view">Cart</a></li>
+                            <li class="nav-item"><a class="nav-link" href="products">返回首页</a></li>
+                            <li class="nav-item"><a class="nav-link" href="cart?action=view">购物车</a></li>
                         </ul>
                     </div>
                 </div>
@@ -36,7 +36,7 @@
                             <span class="badge bg-secondary mb-3">${product.categoryName}</span>
                             <h3 class="text-primary fw-bold my-3">$${product.price}</h3>
                             <p class="lead text-muted">${product.description}</p>
-                            <p class="text-success fw-bold"><i class="bi bi-check-circle-fill"></i> In Stock:
+                            <p class="text-success fw-bold"><i class="bi bi-check-circle-fill"></i> 库存：
                                 ${product.stock}</p>
 
                             <form action="cart" method="post" class="mt-4">
@@ -53,8 +53,7 @@
                                             onclick="this.parentNode.querySelector('input[type=number]').stepUp()">+</button>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-lg rounded-pill px-5 shadow-sm">Add to
-                                    Cart</button>
+                                <button type="submit" class="btn btn-primary btn-lg rounded-pill px-5 shadow-sm">加入购物车</button>
                             </form>
                         </div>
                     </div>

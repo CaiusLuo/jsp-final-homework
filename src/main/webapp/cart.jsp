@@ -5,37 +5,37 @@
 
         <head>
             <meta charset="UTF-8">
-            <title>Shopping Cart - E-Shop</title>
+            <title>Shopping Cart - 电商平台</title>
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         </head>
 
         <body>
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
                 <div class="container">
-                    <a class="navbar-brand" href="products">E-Shop</a>
+                    <a class="navbar-brand" href="products">电商平台</a>
                     <div class="collapse navbar-collapse">
                         <ul class="navbar-nav ms-auto">
-                            <li class="nav-item"><a class="nav-link" href="products">Continue Shopping</a></li>
+                            <li class="nav-item"><a class="nav-link" href="products">继续购物</a></li>
                         </ul>
                     </div>
                 </div>
             </nav>
 
             <div class="container mt-5">
-                <h2>Shopping Cart</h2>
+                <h2>购物车</h2>
                 <c:choose>
                     <c:when test="${empty sessionScope.cart}">
-                        <div class="alert alert-info">Your cart is empty. <a href="products">Go shopping!</a></div>
+                        <div class="alert alert-info">您的购物车是空的。 <a href="products">去购物！</a></div>
                     </c:when>
                     <c:otherwise>
                         <table class="table table-bordered table-hover">
                             <thead class="table-light">
                                 <tr>
-                                    <th>Product</th>
-                                    <th>Price</th>
-                                    <th>Quantity</th>
-                                    <th>Total</th>
-                                    <th>Action</th>
+                                    <th>商品</th>
+                                    <th>价格</th>
+                                    <th>数量</th>
+                                    <th>小计</th>
+                                    <th>操作</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -56,27 +56,27 @@
                                                 <input type="hidden" name="productId" value="${item.product.id}">
                                                 <input type="number" name="quantity" value="${item.quantity}" min="1"
                                                     class="form-control me-2">
-                                                <button type="submit" class="btn btn-sm btn-secondary">Update</button>
+                                                <button type="submit" class="btn btn-sm btn-secondary">更新</button>
                                             </form>
                                         </td>
                                         <td>$${item.totalPrice}</td>
                                         <td>
                                             <a href="cart?action=remove&id=${item.product.id}"
-                                                class="btn btn-sm btn-danger">Remove</a>
+                                                class="btn btn-sm btn-danger">移除</a>
                                         </td>
                                     </tr>
                                 </c:forEach>
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td colspan="3" class="text-end"><strong>Total:</strong></td>
+                                    <td colspan="3" class="text-end"><strong>总计：</strong></td>
                                     <td colspan="2"><strong>$${cartTotal}</strong></td>
                                 </tr>
                             </tfoot>
                         </table>
                         <div class="d-flex justify-content-between">
-                            <a href="cart?action=clear" class="btn btn-warning">Clear Cart</a>
-                            <a href="order?action=checkout" class="btn btn-success btn-lg">Proceed to Checkout</a>
+                            <a href="cart?action=clear" class="btn btn-warning">清空购物车</a>
+                            <a href="order?action=checkout" class="btn btn-success btn-lg">去结算</a>
                         </div>
                     </c:otherwise>
                 </c:choose>
