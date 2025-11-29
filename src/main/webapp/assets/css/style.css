@@ -26,6 +26,8 @@ body {
     /* Apple's standard nav height is small, but we might need more for Bootstrap nav */
     min-height: 60px;
     padding: 0.5rem 0;
+    position: relative;
+    z-index: 1000;
 }
 
 .navbar-brand {

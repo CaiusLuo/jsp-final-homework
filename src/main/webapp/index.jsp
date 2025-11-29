@@ -24,7 +24,7 @@
                             <c:forEach items="${categories}" var="c">
                                 <li class="nav-item">
                                     <a class="nav-link ${c.id == currentCategoryId ? 'active' : ''}"
-                                        href="products?action=category&id=${c.id}">${c.name}</a>
+                                        href="products?action=category&categoryId=${c.id}">${c.name}</a>
                                 </li>
                             </c:forEach>
                         </ul>

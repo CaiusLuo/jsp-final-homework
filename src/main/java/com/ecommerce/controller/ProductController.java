@@ -22,7 +22,7 @@ public class ProductController {
                                @RequestParam(required = false) String keyword,
                                @RequestParam(required = false) Integer id,
                                Model model) {
-        
+
         if ("detail".equals(action) && id != null) {
             Product product = productDAO.getProductById(id);
             model.addAttribute("product", product);
@@ -40,6 +40,8 @@ public class ProductController {
 
         model.addAttribute("products", products);
         model.addAttribute("categories", productDAO.getAllCategories());
+        model.addAttribute("currentCategoryId", categoryId);
+        model.addAttribute("searchKeyword", keyword);
         return "index";
     }
 }

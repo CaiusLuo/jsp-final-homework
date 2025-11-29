@@ -5,12 +5,14 @@ import com.ecommerce.model.CartItem;
 import com.ecommerce.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -23,7 +25,15 @@ public class CartController {
     private ProductDAO productDAO;
 
     @GetMapping
-    public String viewCart() {
+    public String viewCart(HttpSession session, Model model) {
+        List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
+        if (cart != null && !cart.isEmpty()) {
+            BigDecimal total = BigDecimal.ZERO;
+            for (CartItem item : cart) {
+                total = total.add(item.getTotalPrice());
+            }
+            model.addAttribute("cartTotal", total);
+        }
         return "cart";
     }
 

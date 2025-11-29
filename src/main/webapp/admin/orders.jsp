@@ -31,7 +31,7 @@
                             <th>编号</th>
                             <th>用户ID</th>
                             <th>日期</th>
-                            <th>小计</th>
+                            <th>总价</th>
                             <th>状态</th>
                             <th>操作</th>
                         </tr>
@@ -44,8 +44,7 @@
                                 <td>${o.createTime}</td>
                                 <td>$${o.totalAmount}</td>
                                 <td>
-                                    <form action="manage" method="get" class="d-flex align-items-center">
-                                        <input type="hidden" name="action" value="updateOrder">
+                                    <form action="order/update" method="post" class="d-flex align-items-center">
                                         <input type="hidden" name="id" value="${o.id}">
                                         <select name="status" class="form-select form-select-sm me-2"
                                             style="width: auto;">

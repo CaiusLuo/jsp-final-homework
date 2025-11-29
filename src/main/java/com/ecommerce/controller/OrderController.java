@@ -36,6 +36,14 @@ public class OrderController {
         }
 
         if ("checkout".equals(action)) {
+            List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
+            if (cart != null && !cart.isEmpty()) {
+                BigDecimal total = BigDecimal.ZERO;
+                for (CartItem item : cart) {
+                    total = total.add(item.getTotalPrice());
+                }
+                model.addAttribute("cartTotal", total);
+            }
             return "order_confirm";
         } else if ("myOrders".equals(action)) {
             List<Order> orders = orderDAO.getOrdersByUserId(user.getId());
